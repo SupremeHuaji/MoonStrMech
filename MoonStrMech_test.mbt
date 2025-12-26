@@ -144,14 +144,14 @@ test "deflection calculations" {
 ///|
 test "truss analysis" {
   // Simple triangle truss: L=4m, h=3m, P=10kN
-  // slant length = 5m (3-4-5 triangle)
-  // sin = 3/5 = 0.6, cos = 2/5 = 0.4
-  // N_slant = -P/(2*sin) = -10/(2*0.6) = -8.333...
-  // N_bottom = 8.333 * 0.4 = 3.333...
+  // slant length = sqrt((L/2)^2 + h^2) = sqrt(4 + 9) = sqrt(13) ≈ 3.606m
+  // sin = 3/3.606 ≈ 0.832, cos = 2/3.606 ≈ 0.555
+  // N_slant = -P/(2*sin) = -10/(2*0.832) ≈ -6.010
+  // N_bottom = -N_slant * cos = 6.010 * 0.555 ≈ 3.336
   let (n_left, n_right, n_bottom) = truss_triangle(4.0, 3.0, 10.0)
-  assert_eq(approx_equal(n_left, -8.333, 0.01), true)
-  assert_eq(approx_equal(n_right, -8.333, 0.01), true)
-  assert_eq(approx_equal(n_bottom, 3.333, 0.01), true)
+  assert_eq(approx_equal(n_left, -6.010, 0.01), true)
+  assert_eq(approx_equal(n_right, -6.010, 0.01), true)
+  assert_eq(approx_equal(n_bottom, 3.336, 0.01), true)
 }
 
 ///|
