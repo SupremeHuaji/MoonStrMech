@@ -1,186 +1,42 @@
-# MoonStrMech - Structural Mechanics Calculation Library
+# MoonStrMech - Structural Mechanics Library
 
-**MoonStrMech** is a comprehensive structural mechanics calculation library written in **Moonbit**, providing functions for structural analysis, beam theory, and civil engineering calculations.
-
----
+A comprehensive structural mechanics calculation library in Moonbit for civil engineering applications.
 
 ## Features
 
-### Support Reactions
+- **Beam Analysis**: Support reactions, shear forces, bending moments, deflections
+- **Structural Analysis**: Truss analysis, stability, dynamics
+- **Mathematical Tools**: Linear algebra, vectors, geometry functions
 
-* **Simply Supported Beams**: Reactions for point loads, uniform loads, and triangular loads
-* **Cantilever Beams**: Fixed-end reactions for point loads and uniform loads
-* **Overhanging Beams**: Support reactions for complex beam configurations
-
----
-
-### Internal Forces
-
-* **Shear Forces**: Calculation of shear force diagrams for various load conditions
-* **Bending Moments**: Bending moment calculations and diagrams
-* **Deflections**: Beam deflection analysis and calculations
-
----
-
-### Structural Analysis
-
-* **Truss Analysis**: Force calculations in truss structures
-* **Arch Structures**: Three-hinged arch analysis
-* **Continuous Beams**: Multi-span beam analysis
-* **Stability Analysis**: Euler critical loads and stability factors
-
----
-
-### Mathematical Utilities
-
-* **Linear Algebra**: Matrix operations, determinants, and system solving
-* **Vector Operations**: 2D/3D vector calculations, dot products, cross products
-* **Geometric Functions**: Polygon area calculations, distance computations
-* **Numerical Methods**: Approximation functions and safe divisions
-
----
-
-## Usage
-
-### Support Reactions
+## Quick Start
 
 ```moonbit
-test "simply supported beam reactions - point load" {
-  // P=10kN at mid-span, L=4m
-  let (ra, rb) = simply_supported_reactions_point(10.0, 2.0, 4.0)
-  assert_eq(ra, 5.0)
-  assert_eq(rb, 5.0)
-}
+// Support reactions
+let (ra, rb) = simply_supported_reactions_point(10.0, 2.0, 4.0)
 
-test "cantilever reactions" {
-  // P=8kN at end, L=3m
-  let (v, m) = cantilever_reactions_point(8.0, 3.0)
-  assert_eq(v, 8.0)
-  assert_eq(m, 24.0)
-}
+// Internal forces
+let shear = simply_supported_shear_point(10.0, 2.0, 5.0, 1.0)
+let moment = simply_supported_moment_point(10.0, 2.0, 5.0, 2.0)
+
+// Stability analysis
+let critical_force = euler_critical_force(200.0e9, 0.0001, 5.0, 1.0)
+
+// Truss analysis
+let (n1, n2, n3) = truss_triangle(4.0, 3.0, 10.0)
 ```
-
----
-
-### Internal Forces and Deflection
-
-```moonbit
-test "internal forces - simply supported point load" {
-  // P=10kN at 2m from left, L=5m
-  let v_left = simply_supported_shear_point(10.0, 2.0, 5.0, 1.0)
-  assert_eq(v_left, 6.0)
-  let m_at_load = simply_supported_moment_point(10.0, 2.0, 5.0, 2.0)
-  assert_eq(m_at_load, 12.0)
-}
-
-test "deflection calculations" {
-  // Simply supported, point load at mid
-  let d1 = simply_supported_deflection_point_mid(10.0, 4.0, 200.0, 0.001)
-  assert_eq(approx_equal(d1, 66.667, 0.01), true)
-}
-```
-
----
-
-### Stability and Dynamics
-
-```moonbit
-test "euler critical force" {
-  // E=200GPa, I=0.0001m⁴, L=5m
-  let pcr = euler_critical_force(200.0e9, 0.0001, 5.0, 1.0)
-  assert_eq(approx_equal(pcr / 1.0e6, 7.895, 0.01), true)
-}
-
-test "dynamics" {
-  // Natural frequency: k=1000N/m, m=10kg
-  let omega = natural_frequency(1000.0, 10.0)
-  assert_eq(omega, 10.0)
-}
-```
-
----
-
-## Parameter Ranges
-
-### Valid Input Ranges
-
-* **Forces**: 0–10⁶ N (structural loads)
-* **Lengths**: 0.1–100 m (beam spans and dimensions)
-* **Elastic Modulus**: 10⁷–10¹¹ Pa (material stiffness)
-* **Moments of Inertia**: 10⁻⁸–10⁻² m⁴ (section properties)
-
----
-
-### Typical Engineering Values
-
-* **Steel E**: 200 GPa (Young's modulus)
-* **Concrete E**: 20–40 GPa (Young's modulus)
-* **Wood E**: 8–15 GPa (Young's modulus)
-* **Standard Beam Loads**: 1–100 kN/m (distributed loads)
-
----
 
 ## Testing
-
-The project includes a comprehensive test suite covering all major functionalities:
 
 ```bash
 moon test
 ```
 
-### Test Coverage
-
-* Support reactions for various beam types
-* Internal force calculations (shear, moment)
-* Beam deflection analysis
-* Structural stability (Euler buckling)
-* Dynamic analysis (natural frequency, damping)
-* Mathematical utilities and geometric calculations
-* Truss and arch structure analysis
-
----
-
 ## Technical Details
 
-### Engineering Standards
+- **Units**: SI (N, m, Pa)
+- **Theory**: Classical beam theory, Euler buckling
+- **Applications**: Structural design, civil engineering, education
 
-* **Structural Analysis**: Classical beam theory and structural mechanics
-* **Euler Buckling**: Critical load analysis for slender members
-* **Beam Deflection**: Integration methods for deflection calculations
-* **SI Units**: Consistent use of International System of Units
+## Version
 
----
-
-### Applications
-
-* **Civil Engineering**: Building structures, bridges, and foundations
-* **Structural Design**: Beam analysis and design calculations
-* **Educational Use**: Structural mechanics teaching and learning
-* **Research Applications**: Structural analysis and simulation
-
----
-
-## Notes
-
-1. **Units**: All calculations use SI units (meters, kilograms, seconds, Newtons)
-2. **Load Conventions**: Positive shear and moment follow standard conventions
-3. **Boundary Conditions**: Standard support conditions assumed unless specified
-4. **Material Properties**: Linear elastic behavior assumed
-5. **Geometric Assumptions**: Euler-Bernoulli beam theory assumptions
-6. **Validation**: Results should be verified against established structural analysis methods
-
----
-
-## Version Information
-
-The current version (0.1.0) implements **core structural mechanics calculation functions** including:
-
-* Support reaction calculations for various beam types
-* Internal force analysis (shear forces, bending moments)
-* Beam deflection calculations using classical methods
-* Structural stability analysis (Euler critical loads)
-* Dynamic analysis (natural frequencies, damping)
-* Mathematical utilities for structural calculations
-* Truss and arch structure analysis
-
-The library is actively developed and aims to provide comprehensive coverage of structural mechanics while being optimized for MoonBit.
+v0.1.0 - Core structural mechanics functions for Moonbit
