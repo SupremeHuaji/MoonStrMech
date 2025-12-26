@@ -182,6 +182,93 @@ test "polygon area" {
   assert_eq(polygon_area(sq), 4.0)
 }
 ```
+
+---
+
+## Parameter Ranges
+
+### Valid Input Ranges
+
+* **Forces**: 0–10⁶ N (structural loads)
+* **Lengths**: 0.1–100 m (beam spans and dimensions)
+* **Elastic Modulus**: 10⁷–10¹¹ Pa (material stiffness)
+* **Moments of Inertia**: 10⁻⁸–10⁻² m⁴ (section properties)
+
+---
+
+### Typical Engineering Values
+
+* **Steel E**: 200 GPa (Young's modulus)
+* **Concrete E**: 20–40 GPa (Young's modulus)
+* **Wood E**: 8–15 GPa (Young's modulus)
+* **Standard Beam Loads**: 1–100 kN/m (distributed loads)
+
+---
+
+## Testing
+
+The project includes a comprehensive test suite covering all major functionalities:
+
+```bash
+moon test
+```
+
+### Test Coverage
+
+* Support reactions for various beam types
+* Internal force calculations (shear, moment)
+* Beam deflection analysis
+* Structural stability (Euler buckling)
+* Dynamic analysis (natural frequency, damping)
+* Mathematical utilities and geometric calculations
+* Truss and arch structure analysis
+
+---
+
+## Technical Details
+
+### Engineering Standards
+
+* **Structural Analysis**: Classical beam theory and structural mechanics
+* **Euler Buckling**: Critical load analysis for slender members
+* **Beam Deflection**: Integration methods for deflection calculations
+* **SI Units**: Consistent use of International System of Units
+
+---
+
+### Applications
+
+* **Civil Engineering**: Building structures, bridges, and foundations
+* **Structural Design**: Beam analysis and design calculations
+* **Educational Use**: Structural mechanics teaching and learning
+* **Research Applications**: Structural analysis and simulation
+
+---
+
+## Notes
+
+1. **Units**: All calculations use SI units (meters, kilograms, seconds, Newtons)
+2. **Load Conventions**: Positive shear and moment follow standard conventions
+3. **Boundary Conditions**: Standard support conditions assumed unless specified
+4. **Material Properties**: Linear elastic behavior assumed
+5. **Geometric Assumptions**: Euler-Bernoulli beam theory assumptions
+6. **Validation**: Results should be verified against established structural analysis methods
+
+---
+
+## Version Information
+
+The current version (0.1.0) implements **core structural mechanics calculation functions** including:
+
+* Support reaction calculations for various beam types
+* Internal force analysis (shear forces, bending moments)
+* Beam deflection calculations using classical methods
+* Structural stability analysis (Euler critical loads)
+* Dynamic analysis (natural frequencies, damping)
+* Mathematical utilities for structural calculations
+* Truss and arch structure analysis
+
+The library is actively developed and aims to provide comprehensive coverage of structural mechanics while being optimized for MoonBit.
   l : Double,
   x : Double,
 ) -> Double {
@@ -195,6 +282,7 @@ test "polygon area" {
     ra - p
   }
 }
+
 
 ///|
 /// 简支梁集中力作用下任意截面的弯矩
